@@ -2,10 +2,46 @@ import { Typography, Divider } from 'antd';
 import './App.css';
 import TodoList from './components/TodoList';
 import Filters from './components/Filters';
+import { setupServer } from './fakeApis';
+import { use, useEffect } from 'react';
+
+setupServer();
 
 const { Title } = Typography;
 
 function App() {
+  useEffect(() => {
+    fetch('/api/todos', {
+      method: 'POST',
+      body: JSON.stringify({
+        id: 1,
+        name: 'Learn React',
+        completed: false,
+        priority: 'High',
+      })
+    }).then((res) => {
+      fetch('/api/todos')
+        .then((res) => res.json())
+        .then((res) => console.log(res));
+
+      fetch('api/updateTodo', {
+        method: 'POST',
+        body: JSON.stringify({
+          id: 1,
+          name: 'Learn React',
+          completed: true,
+          priority: 'High',
+        })
+      }).then((res) => {
+        fetch('/api/todos')
+          .then((res) => res.json())
+          .then((res) => console.log(res));
+      })
+    })
+
+
+  }, [])
+
   return (
     <div
       style={{

@@ -12,10 +12,6 @@ export default function TodoList() {
 
     const dispath = useDispatch();
     const todoList = useSelector(todosRemainingSelector);
-
-    console.log('todolist', todoList);
-
-
     const handleAddButtonClick = () => {
         dispath(
             todosSlice.actions.addTodo({

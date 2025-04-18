@@ -44,6 +44,7 @@
     ]
   },
   "devDependencies": {
-    "ajv": "^7.2.4"
+    "ajv": "^7.2.4",
+    "miragejs": "^0.1.48"
   }
 }
