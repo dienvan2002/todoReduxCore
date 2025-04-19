@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 import { todosRemainingSelector } from "../../redux/selectors";
 
-import todosSlice from './todosSlice'
+import todosSlice, { addNewTodos, addTodos } from './todosSlice'
 export default function TodoList() {
     const [todoName, setTodoName] = useState("");
     const [priority, setPriority] = useState("Medium");
@@ -13,14 +13,26 @@ export default function TodoList() {
     const dispath = useDispatch();
     const todoList = useSelector(todosRemainingSelector);
     const handleAddButtonClick = () => {
-        dispath(
-            todosSlice.actions.addTodo({
-                id: uuidv4(),
-                name: todoName,
-                completed: false,
-                priority: priority,
-            })
-        );
+        // dispath(
+        //     todosSlice.actions.addTodo({
+        //         id: uuidv4(),
+        //         name: todoName,
+        //         completed: false,
+        //         priority: priority,
+        //     })
+        // );
+        dispath(addNewTodos({
+            id: uuidv4(),
+            name: todoName,
+            completed: false,
+            priority: priority,
+        }))
+        // dispath(addTodos({
+        //     id: uuidv4(),
+        //     name: todoName,
+        //     completed: false,
+        //     priority: priority,
+        // }))
         setTodoName("");
         setPriority("Medium");
     };

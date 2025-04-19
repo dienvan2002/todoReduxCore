@@ -6,20 +6,20 @@ export const setupServer = () => {
             todos: Model,
         },
         routes() {
-            this.get("api/todos", (schema) => {
+            this.get("/api/todos", (schema) => {
                 return schema.todos.all();
             });
 
-            this.post("api/todos", (schema, request) => {
+            this.post("/api/todos", (schema, request) => {
                 const data = JSON.parse(request.requestBody);
                 return schema.todos.create(data);
             });
 
-            this.post("api/updateTodo", (schema, request) => {
-                const data = JSON.parse(request.requestBody);
-                const currentTodo = schema.todos.find(data.id);
-                return currentTodo.update(data);
-                
+            this.post("/api/updateTodo", (schema, request) => {
+                const id = JSON.parse(request.requestBody);
+                const currentTodo = schema.todos.find(id);
+                currentTodo.update({ completed: !currentTodo.completed });
+                return currentTodo
             })
         }
     });
